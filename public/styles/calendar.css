@@ -15,7 +15,7 @@
 	padding: 0.5em;
 	border: 1.5px solid rgb(156, 116, 250);
 	color: rgb(156, 116, 250);
-	background: rgb(243, 237, 255);
+	/* background: rgb(243, 237, 255); */
 	transition-duration: 0.3s;
 }
 

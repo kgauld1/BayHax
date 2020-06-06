@@ -6,3 +6,28 @@
 	width: 100%;
 	text-align: center;
 }
+
+
+#dashboard-grid {
+	display: grid;
+  /* grid-template-areas: 'last last facts facts facts'
+    'last last facts facts facts'
+    'emotions emotions facts facts facts'; */
+  grid-gap: 10px;
+  padding: 10px;
+	width: 100%;
+	height: 60%;
+}
+
+#last {
+	grid-area: last; 
+	/* background: blue; */
+}
+#felt {
+	grid-area: emotions;
+	/* background: green; */
+}
+#facts {
+	grid-area: facts; 
+	/* background: red; */
+}

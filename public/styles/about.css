@@ -1,5 +1,5 @@
 html{
-  background: linear-gradient(#ffffff, #b4b9ee86) fixed;
+  background: linear-gradient(to left, #ffffff, rgb(243, 218, 255)) fixed;
 }
 
 img {
@@ -41,7 +41,6 @@ a:hover {
 }
 
 .member{
-  margin-left: 7%;
   margin-left: 7%;
   margin-bottom: 5%;
   float: left;

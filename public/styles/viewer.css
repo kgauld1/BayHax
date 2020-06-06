@@ -7,7 +7,6 @@
 	width: 100%;
 	height: 100%;
   
-  background: rgb(250, 239, 255);
 }
 
 #sidebar {
@@ -18,6 +17,8 @@
 	padding: 1em;
 	overflow: auto;
 	text-align: center;
+  
+  background: rgb(243, 218, 255);
 }
 
 #sidebar .prof-pic {
