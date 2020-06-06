@@ -1,5 +1,12 @@
 var coll = document.getElementsByClassName("collapsible");
 
+var emotions = {
+	happy: '😀',
+	sad: '😔',
+	angry: '😡',
+	neutral: '😐'
+};
+
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
@@ -10,6 +17,15 @@ for (i = 0; i < coll.length; i++) {
       content.style.display = "block";
     }
   });
+}
+
+function fillLastRecorded(parts){
+	document.getElementById('lastfelt').innerHTML = `${parts[0]}: ${emotions[parts[1]]}`
+
+}
+
+function fillFelt(times){
+
 }
 
 
@@ -33,5 +49,9 @@ async function getData(){
 	let times = json[year][month][day];
 
 	let parts = times[times.length - 1].split(',');
-	
+
+	fillLastRecorded(parts);
+	fillFelt(times);	
 }
+
+getData();

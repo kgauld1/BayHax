@@ -30,7 +30,15 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 
-console.log(moodData)
+let data ={
+  2020: {
+    june: {
+      5: ["1:03,happy"],
+      6: ["1:54,angry"],
+      6: ["13:54,angry"],
+    }
+  }
+}
 
 //Get current date
 currentDate = new Date();
@@ -46,8 +54,8 @@ sadData = (new Array(24)).fill(0);
 angryData = (new Array(24)).fill(0);
 
 //Sum frequencies for each mood per hour
-for (entry in moodData[year][month]){
-  time_mood_unsplit = moodData[year][month][numeric_day][0];
+for (entry in data[year][month]){
+  time_mood_unsplit = data[year][month][numeric_day][0];
   time_mood_split = time_mood_unsplit.split(",");
 
   time = time_mood_split[0].split(":");
