@@ -1,6 +1,14 @@
 html{
-  background: linear-gradient(to left, #ffffff, rgb(243, 218, 255)) fixed;
+  background-image: url("https://cdn.discordapp.com/attachments/713079524337647666/718916413959438487/1.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
 }
+
+body{
+  
+}
+
 
 img {
   border-radius: 50%;

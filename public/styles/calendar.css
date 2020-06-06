@@ -1,3 +1,9 @@
+html{
+  background-image: url("https://cdn.discordapp.com/attachments/713079524337647666/718921752692129855/bg5.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
+}
 
 #top-bar {
 	display: inline-flex;

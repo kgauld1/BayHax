@@ -9,6 +9,18 @@
   
 }
 
+.selected {
+	background-color: white;
+	background-image: url("https://cdn.discordapp.com/attachments/713079524337647666/718925109036843062/Viewer.png");
+  background-repeat: no-repeat;
+  /* background-attachment: fixed;   */
+  /* background-size: cover; */
+	background-position: right 2%;
+	background-size: 20em 60em;
+	border-left: 8px solid rgb(156, 116, 250);
+	
+}
+
 #sidebar {
 	width: 15em;
 	height: 100%;
@@ -33,7 +45,7 @@
 	margin: 1em 0;
 }
 #sidebar a {
-	transition-duration: 0.3s;
+	transition: border 0.3s ease;
 	text-decoration: none;
 	color: black;
 	padding: 0.5em;

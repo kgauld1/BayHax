@@ -9,7 +9,7 @@ var emotions = {
 	sad: '😔',
 	angry: '😡',
 	neutral: '😐'
-}
+};
 
 function changeType(part){
 	for (let i = 0; i < buttons.length; i++){

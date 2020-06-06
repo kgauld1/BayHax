@@ -9,10 +9,10 @@ function changeHash(){
 	let elements = document.getElementById('sidebar').getElementsByTagName('a');
 
 	for (let i = 0; i < elements.length; i++){
-		elements[i].style = "";
+		elements[i].classList.remove("selected");
 	}
 
-	document.getElementById(location.hash.substring(1)).style = "border-left: 8px solid rgb(156, 116, 250);	background: rgb(245, 245, 245);"
+	document.getElementById(location.hash.substring(1)).classList.toggle('selected');
 }
 
 if (!location.hash) location.hash = "#dashboard";

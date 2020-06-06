@@ -18,7 +18,6 @@ async function getData(){
 	moodData = json.moods;
 }
 
-
 for (i = 0; i < coll.length; i++) {
   coll[i].addEventListener("click", function() {
     this.classList.toggle("active");
@@ -31,6 +30,52 @@ for (i = 0; i < coll.length; i++) {
   });
 }
 
+console.log(moodData)
+
+//Get current date
+currentDate = new Date();
+year = currentDate.getFullYear();
+monthNames = ["January", "February", "March", "April", "May", "June",
+  "July", "August", "September", "October", "November", "December"];
+month = monthNames[currentDate.getMonth()];
+numeric_day = currentDate.getDate();
+
+//Create empty arrays for happy, sad, and angry frequencies per hour
+happyData = (new Array(24)).fill(0);
+sadData = (new Array(24)).fill(0);
+angryData = (new Array(24)).fill(0);
+
+//Sum frequencies for each mood per hour
+for (entry in moodData[year][month]){
+  time_mood_unsplit = moodData[year][month][numeric_day][0];
+  time_mood_split = time_mood_unsplit.split(",");
+
+  time = time_mood_split[0].split(":");
+  hour = parseInt(time[0]);
+
+  if (time_mood_split[1] == "angry"){
+    current_frequency = angryData[hour] + 1;
+    angryData[hour] = current_frequency;
+  }
+  
+  else if (time_mood_split[1] == "happy"){
+    current_frequency = happyData[hour] + 1;
+    happyData[hour] = current_frequency;
+  }
+
+  else if (time_mood_split[1] == "sad"){
+    current_frequency = sadData[hour] + 1;
+    sadData[hour] = current_frequency;
+  }
+}
+
+const reducer = (accumulator, currentValue) => accumulator + currentValue;
+bar_chart_data = new Array(3);
+bar_chart_data[0] = happyData.reduce(reducer);
+bar_chart_data[1] = sadData.reduce(reducer);
+bar_chart_data[2] = angryData.reduce(reducer);
+//console.log(bar_chart_data)
+
 let barChart1 = document.getElementById('barChart1').getContext('2d');
 new Chart(barChart1, {
   type: 'bar',
@@ -38,7 +83,7 @@ new Chart(barChart1, {
     labels: ['Happiness', 'Sadness', 'Anger'],
     datasets: [{
       label: 'Mood',
-      data: [1, 2, 10],
+      data: bar_chart_data,
     backgroundColor: ["#f5f242", "#42b0f5", "#f56642"]
     }]
   },
@@ -73,7 +118,7 @@ new Chart(happyLineGraph, {
       label: 'Happiness',
       fill: "false",
       borderColor: "#f5f242",
-      data: [0, 1, 2]
+      data: happyData
     }]
   },
   options: {
@@ -105,7 +150,7 @@ new Chart(sadLineGraph, {
       label: 'Sadness',
       fill: "false",
       borderColor: "#42b0f5",
-      data: [0, 1, 2]
+      data: sadData
     }]
   },
   options: {
@@ -137,10 +182,7 @@ new Chart(angryLineGraph, {
       label: 'Anger',
       fill: "false",
       borderColor: "#f56642",
-      data: [{
-        x: new Date("13:00"),
-        y: 2
-      }]
+      data: angryData
     }]
   },
   options: {
@@ -170,7 +212,7 @@ new Chart(pieChart1, {
   data: {
     labels: ['Happy','Sad', 'Angry'],
     datasets: [{
-      data: [3, 1, 2],
+      data: bar_chart_data,
       backgroundColor: ["#f5f242", "#42b0f5", "#f56642"]
     }]
   },
