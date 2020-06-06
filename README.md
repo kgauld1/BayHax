@@ -1,5 +1,5 @@
 # BayHax
-![banner](pages/pic/BayHaxTitle.png)
+![banner](public/pages/pic/BayHaxTitle.png)
 
 A Stuffed Animal Toy To Track Mood Changes
 
