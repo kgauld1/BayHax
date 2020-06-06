@@ -1,0 +1,51 @@
+html{
+  background: linear-gradient(#ffffff, #b4b9ee86) fixed;
+}
+
+img {
+  border-radius: 50%;
+}
+
+a{
+  text-decoration:none;
+}
+
+a:link {
+  color: rgb(110, 53, 160);
+}
+
+a:active {
+  color: rgb(156, 116, 250);
+}
+
+a:visited {
+  color: rgb(110, 53, 160);
+}
+
+a:hover {
+  color: rgb(156, 116, 250);
+}
+
+.team{
+  margin: auto;
+  width: 70%;
+}
+
+.memberrow1{
+  width:100%;
+
+}
+
+.memberrow2{
+  width:100%;
+}
+
+.member{
+  margin-left: 7%;
+  margin-left: 7%;
+  margin-bottom: 5%;
+  float: left;
+}
+
+
+

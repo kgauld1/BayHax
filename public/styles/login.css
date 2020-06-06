@@ -1,0 +1,30 @@
+
+*{
+	text-align: center;
+}
+
+body {
+	/* background: url("https://www.lancasterschools.org/cms/lib/NY19000266/Centricity/Domain/267/Brain%20image%20word%20collage.jpg");
+	background-repeat: no-repeat;
+  background-size: 100%; */
+}
+
+h1 {
+	font-size: 10vmin;
+}
+
+#id-box {
+	width: 50vmin;
+	height: 7vmin;
+	font-size: 3vmin;
+	border-radius: 2em;
+	outline: none;
+	border: 2px solid black;
+}
+
+.box {
+	position: absolute;
+	width: 100%;
+	top: 30%;
+	font-size: 4vmin;
+}

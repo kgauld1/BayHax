@@ -1,0 +1,69 @@
+*{
+	font-family: 'Comfortaa';
+}
+
+.centered {
+	width: 100%;
+	text-align: center;
+}
+
+.collapsible {
+  background-color:white;
+  cursor: pointer;
+  padding: 18px;
+  width: 100%;
+  border: none;
+  text-align: left;
+  outline: none;
+  font-size: 24px;
+}
+
+.content {
+  padding: 0 18px;
+  display: none;
+  overflow: hidden;
+  font-size: 18px;
+}
+
+*{
+	font-family: 'Comfortaa';
+}
+
+.centered {
+	width: 100%;
+	text-align: center;
+}
+
+.grid-container {
+  display: grid;
+  grid-template-columns: 49.4% 49.4%;
+  grid-gap: 15px;
+  padding: 10px;
+}
+
+.grid-container > div {
+  text-align: center;
+  padding: 20px 0;
+  font-size: 30px;
+}
+
+.card {
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding: 2px 16px;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
+
+.collapsible-graph {
+  width: 40%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding: 2px 16px;
+}
+
+.collapsible-graph:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}

@@ -1,0 +1,37 @@
+
+#top-bar {
+	display: inline-flex;
+	width: 50%;
+	justify-content: space-evenly;
+}
+
+#top-bar span{
+	padding: 0.5em;
+	border: 1.5px solid rgb(156, 116, 250);
+	color: rgb(156, 116, 250);
+	cursor: pointer;
+}
+#top-bar span:hover{
+	padding: 0.5em;
+	border: 1.5px solid rgb(156, 116, 250);
+	color: rgb(156, 116, 250);
+	background: rgb(243, 237, 255);
+	transition-duration: 0.3s;
+}
+
+#cards {
+	margin-top: 3em;
+}
+
+.card {
+	display: inline-block;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  padding: 2em;
+	padding-top: 0.5em;
+	margin: 1em;
+}
+
+.card:hover {
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2);
+}
