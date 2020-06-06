@@ -8,7 +8,10 @@ app.get('/', (req, res) => {
   res.render('index');
 });
 
-app.post('/update', (req, res) => {
+app.post()
+
+app.post('/data-rpi', (req, res) => {
+	let {date, mood, id} = req.body;
 
 });
 
