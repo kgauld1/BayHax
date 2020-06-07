@@ -78,8 +78,6 @@ app.post('/get-data', async (req, res) => {
 	if (!doc) return res.send({error: 'invalid id'});
 
 	res.send(doc);
-	
-
 });
 
 app.post('/update', (req, res) => {
@@ -89,11 +87,48 @@ app.post('/update', (req, res) => {
 	res.send(JSON.stringify({message: "Setting Changed"}));
 });
 
-app.post('/rpi', (req, res) => {
-	let {mood, id} = req.body;
-	let date = Date.now();
+app.post('/rpi', async (req, res) => {
+	try{
+		let {mood, picture, id} = req.body;
+		let date = Date.now();
 
-	res.send({response: "done"});
+		if (!docExists(id)) return res.send({error: "user does not exist"});
+
+		console.log(id, mood);
+		
+		var options = {projection: {}};
+		options.projection[req.body.part] = 1;
+		var doc = await users.findOne({_id: id});
+		
+		res.send(doc.settings);
+
+		// alter db
+		if (mood){
+			let months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
+
+			let year = Date.getFullYear();
+			let month = months[Date.getMonth()];
+			let day = Date.getDay();
+			let hour = Date.getHours();
+			let minute = Date.getMinutes();
+
+			let path = year + '.' + month + '.' + day;
+
+			let entry = hour + ':' + minute + ',' + mood;
+			if (picture) entry += ',' + picture;
+
+			let update = {$push: {}};
+			update[path] = {};
+			update[path]['$each'] = [entry];
+
+			users.update({_id: id}, update);
+
+		}
+	}
+	catch(e){
+		console.log(e);
+		res.send({error: "server crashed"});
+	}
 });
 
 app.listen(3000, () => {

@@ -13,11 +13,11 @@
 	background-color: white;
 	background-image: url("https://cdn.discordapp.com/attachments/713079524337647666/718925109036843062/Viewer.png");
   background-repeat: no-repeat;
-  /* background-attachment: fixed;   */
-  /* background-size: cover; */
 	background-position: right 2%;
 	background-size: 20em 60em;
+	/* border: 1px solid black; */
 	border-left: 8px solid rgb(156, 116, 250);
+	border-right: 8px solid rgb(156, 116, 250);
 	
 }
 
@@ -66,4 +66,20 @@
 	height: 100%;
 	margin: 0;
 	border-right: 1px solid black;
+}
+
+a:link {
+  color: rgb(110, 53, 160);
+}
+
+a:active {
+  color: rgb(156, 116, 250);
+}
+
+a:visited {
+  color: rgb(110, 53, 160);
+}
+
+a:hover {
+  color: rgb(156, 116, 250);
 }

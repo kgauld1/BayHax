@@ -1,4 +1,5 @@
 var buttons = document.getElementById('top-bar').getElementsByTagName('span');
+var boardTitle = document.getElementById('title');
 var year = 2020;
 var month = "june";
 
@@ -11,6 +12,8 @@ var emotions = {
 	neutral: '😐'
 };
 
+
+
 function changeType(part){
 	for (let i = 0; i < buttons.length; i++){
 		if (buttons[i].id == part + '-toggle'){
@@ -18,7 +21,7 @@ function changeType(part){
 		}
 		else buttons[i].style = "";
 	}
-	document.getElementById('cards').innerHTML = "";
+	document.getElementById('cards').getElementsByClassName('container')[0].innerHTML = "";
 	if (part == 'day') dayCalendar();
 	else if (part == 'week') weekCalendar();
 	else if (part == 'month') monthCalendar();
@@ -41,7 +44,7 @@ async function getData(){
 	console.log(json);
 	allData = json.moods;
 
-	dayCalendar();
+	changeType('day');
 }
 
 function makeDayCard(title, moods){
@@ -81,9 +84,9 @@ function makeMonthCard(title, moods){
 		else felt[parts[1]] += 1;
 	}
 	for (let key of Object.keys(felt)){
-		icons.innerHTML += `${emotions[key]}: ${felt[key]}<br>`;
+		icons.innerHTML += `${emotions[key]}: ${felt[key]} &nbsp;`;
 	}
-	icons.innerHTML = icons.innerHTML.substring(0, icons.innerHTML.length-4);
+	icons.innerHTML = icons.innerHTML.substring(0, icons.innerHTML.length);
 	card.appendChild(icons);
 
 	return card;
@@ -94,11 +97,14 @@ function dayCalendar(){
 	let keys = Object.keys(monthRecords);
 	let dayRecord = monthRecords[keys[keys.length-1]];
 
+	boardTitle.innerHTML = "";
+
 	let card = makeDayCard(titleCase(month) + " " + keys[keys.length-1] + ", " + year, Object.values(dayRecord));
 
-	card.style.width = '30%';
+	card.style.width = '20vmin';
 
-	document.getElementById('cards').appendChild(card);
+	console.log(document.getElementById('cards'));
+	document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 }
 
 async function weekCalendar(){
@@ -107,13 +113,13 @@ async function weekCalendar(){
 	if (keys.length > 7){
 		keys.splice(keys.length-7);
 	}
-
-	let weekTitle =`Week of ${titleCase(month)} ${keys[0]} to ${titleCase(month)} ${keys[keys.length - 1]}`;
-	document.getElementById('cards').innerHTML += `<h2>Last Seven Days</h2>`;
+	boardTitle.innerHTML = `Last Seven Days`;
+	// I'm experimenting
+	// document.getElementById('cards').innerHTML += `<h2>Last Seven Days</h2>`;
 
 	for (let day of Object.keys(monthRecords)){
 		let card = makeDayCard(month + ' ' + day, Object.values(monthRecords[day]));
-		document.getElementById('cards').appendChild(card);
+		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 	}
 
 }
@@ -122,11 +128,14 @@ async function monthCalendar(){
 	let monthRecords = allData[year][month];
 	let keys = Object.keys(monthRecords);
 	let monthTitle =`Month of ${titleCase(month)}`;
-	document.getElementById('cards').innerHTML += `<h2>${monthTitle}</h2>`;
+	boardTitle.innerHTML = monthTitle;
+	// document.getElementById('cards').innerHTML += `<h2>${monthTitle}</h2>`;
 
 	for (let day of Object.keys(monthRecords)){
 		let card = makeMonthCard(month + ' ' + day, Object.values(monthRecords[day]));
-		document.getElementById('cards').appendChild(card);
+		card.style.width = "15vmin";
+		card.style.height = "15vmin";
+		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 	}
 }
 

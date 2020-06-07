@@ -29,51 +29,36 @@
     <div class='centered'> <h1>Dashboard</h1> </div>
 
 		<div id='dashboard-grid'>
-			<div id='last' class='grid-item'>
+			<div id='last' class='card'>
 				<h2>Last Recorded Emotion</h2>
 				<div class='centered'><h2 id='lastfelt'></h2></div>
 			</div>
 
-			<div id='felt' class='grid-item'>
+			<div id='felt' class='card'>
 				<h2>Emotions Felt Today<h2>
+				<div class='centered'><h2 id='allfelt'></h2></div>
 			</div>
 
-			<div id='facts' class='grid-item'>
-				<h2>Quick Facts</h2>
-				<button type="button" class="collapsible"> &#128512; Happiness </button>
-				<div class="content">
-					Happiness is influenced by four major chemicals in the brain:
-					<br><br> 1. <b>Dopamine</b> is a neural transmitter that improves mood, interest, attention, and learning.
-					<br><br> 2. <b>Oxytocin</b>, also known as the “love hormone”, helps strengthen the attachment between mother and infant.
-					<br><br> 3. <b>Serotonin</b> helps regulate your body’s internal clock and sleep-wake cycles. It is also thought to influence appetite, emotions, and motor and cognitive functions.
-					<br><br> 4. <b>Endorphins</b> help one cope with pain or stress. They are our body’s natural reward system and come into action during activities such as eating, drinking, and physical exercise.
-					<br><br>For children, happy emotions increase creativity, problem solving, and kindness. Thus, the more a child experiences positive emotions, the more they spend time playing, learning, and socializing. On the other hand, children who experience negative emotions such as sadness or anger will be focused on whatever is upsetting them, and in turn, will have fewer opportunities to learn.
-					<br>
-				</div>
-
-				<button type="button" class="collapsible"> &#128532; Sadness </button>
-				<div class="content">
-					Sadness in children can be as simple as disappointment or as complex as grief and depression. Tears are the most obvious indication of sadness, but sadness can also manifest in isolation or clinginess. <br><br>Children can experience feelings of sadness for many different reasons, some of which may seem significant while others may seem trivial. However, it’s important to remember that from the child’s perspective, no reason is insignificant. Respond with empathy instead of trivializing your child’s feelings. Make the feeling of sadness less lonely by showing your child that you experience it too.
-					<br><br>While sadness is a normal emotion for a child to have every so often, young children can have depression as well. You should consult a doctor if:
-					<br><br>• your child is persistently showing extensive signs of sadness
-					<br>• your child’s feelings of sadness persist for an extended period of time
-					<br>
-				</div>
-
-				<button type="button" class="collapsible"> &#128545; Anger </button>
-				<div class="content">
-					Young children tend to respond to anger with tantrums. According to the Yale Medicine Child Study Center, children younger than 4 years old have up to 9 tantrums a week on average. However, most children will grow out of this phase by kindergarten.
-					<br><br>Common causes of anger in young children include feeling hungry or tired, playing with a toy or activity that is too difficult, abrupt changes to their daily or expected routine, interacting with a sibling or another child, or not being given something they want.
-					<br><br>Some factors may also make children more susceptible to feelings of anger, including stress experienced in infancy, genetics, environment, and family dynamics.
-					<br><br>While anger is a normal emotion for a child to have every so often, you should consult a doctor if:
-					<br><br>• your child has multiple tantrums per day
-					<br>• your child’s tantrums or feelings of anger last for long periods of time, regardless of your efforts to quell them
-					<br>• you are worried that your child may injure themselves or others during their tantrums<br>
-				</div>
-					
+			<div id='common' class='card'>
+					<h2>Most Common Emotion</h2>
 			</div>
 		</div>
 
+    <div class="grid-container">
+      
+      <div class="barChart">
+        <div class="card">
+          <canvas id="barChart1"></canvas>
+        </div>
+      </div>
+
+      <div class="pieChart">
+        <div class="card">
+          <canvas id="pieChart1"></canvas>
+        </div>
+      </div>  
+    
+    </div>
     
     <script src="scripts/dashboard.js"></script>
   </body>
