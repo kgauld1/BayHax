@@ -14,12 +14,11 @@ html{
 	text-align: center;
 }
 
-
 #dashboard-grid {
 	display: grid;
   grid-gap: 10px;
-	grid-template-columns: 28% 28% 28%;
-  height: 50vh;
+	grid-template-columns: repeat(3, 33%);
+  height: 80vh;
   padding: 10px;
 }
 
@@ -54,11 +53,21 @@ html{
 	font-size: 6vmin;
 	text-orientation: horizontal-rl
 }
-#facts {
+
+#common {
+  position: relative;
+	grid-row: 1 / span 2;
+  grid-column: 3;
 	font-size: 2vmin;
-	grid-row: 1 / span 3;
-  grid-column: 3 / span 5;
-	overflow-y: auto;
+}
+#mostfelt {
+  position: absolute;
+	top: 43%;
+	left: 50%;
+	transform: translate(-50%, -20%);
+	margin: 0;
+	padding: 0;
+	font-size: 6vmin
 }
 
 .grid-item {

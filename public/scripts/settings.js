@@ -9,14 +9,13 @@ function makeSetting(name, value){
 	div.appendChild(title);
 
 	if (typeof value == "number"){
-		let decimals = 0;
 		let el = document.createElement('input');
 		el.type = 'range';
+		el.classList.add('slider');
 		if (name == 'frequency'){
-			decimals = 2;
-			el.setAttribute('min', 0.25);
-			el.setAttribute('max', 3);
-			el.setAttribute('step', 0.05);
+			el.setAttribute('min', 5);
+			el.setAttribute('max', 120);
+			el.setAttribute('step', 1);
 		}
 		else if (name == 'volume'){
 			el.setAttribute('min', 0);
@@ -25,11 +24,21 @@ function makeSetting(name, value){
 		}
 		el.value = value;
 
-		title.innerHTML = titleCase(name) + ` (${value.toFixed(decimals)})`;
+		title.innerHTML = titleCase(name) + ` (${value})`;
 
 		el.oninput = function() {
 			console.log(typeof(this.value));
-			title.innerHTML = titleCase(name) + ` (${parseFloat(this.value).toFixed(decimals)})`;
+			title.innerHTML = titleCase(name) + ` (${parseInt(this.value)})`;
+		}
+
+		el.onchange = function() {
+			fetch('/update', { method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					setting: name,
+					change: parseInt(this.value)
+				})
+			});
 		}
 
 
@@ -37,14 +46,37 @@ function makeSetting(name, value){
 	}
 	else if (typeof value == "boolean"){
 		let el = document.createElement('input');
-			el.type = 'checkbox';
-			el.checked = value;
-			div.appendChild(el);
+		el.classList.add('check');
+		el.type = 'checkbox';
+		el.checked = value;
+		el.onchange = function() {
+			fetch('/update', { method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					setting: name,
+					change: this.checked
+				})
+			});
+		}
+
+		div.appendChild(el);
+		
+		
 	}
 	else if (typeof value == "string"){
+		el.classList.add('str');
 		let el = document.createElement('input');
 			el.type = 'text';
 			el.value = value;
+			el.onchange = function() {
+			fetch('/update', { method: 'POST',
+				headers: { 'Content-Type': 'application/json' },
+				body: JSON.stringify({
+					setting: name,
+					change: this.value
+				})
+			});
+		}
 			div.appendChild(el);
 	}
 

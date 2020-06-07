@@ -25,6 +25,7 @@ function fillLastRecorded(parts){
 }
 
 function fillFelt(times){
+  console.log(times)
 	let felt = new Set();
 	for (let t of times) {
 		let parts = t.split(',');
@@ -72,74 +73,32 @@ async function getData(){
   numeric_day = currentDate.getDate();
 
   //Create empty arrays for happy, sad, and angry frequencies per hour
-  happyData = (new Array(24)).fill(0);
-  sadData = (new Array(24)).fill(0);
-  angryData = (new Array(24)).fill(0);
+	let numHappy = 0, numSad = 0, numAngry = 0, total = 0;
 
   //Sum frequencies for each mood per hour
   time_mood_unsplit = moodData[year][month.toLowerCase()][numeric_day];
   //console.log(time_mood_unsplit)
   for (time_index in time_mood_unsplit){
     time_mood_split = time_mood_unsplit[time_index].split(",");
-    //console.log(time_mood_split);
 
-    time = time_mood_split[0].split(":");
-    hour = parseInt(time[0]);
-   
-
-    if (time_mood_split[1] == "angry"){
-      current_frequency = angryData[hour] + 1;
-      angryData[hour] = current_frequency;
-    }
-    
-    else if (time_mood_split[1] == "happy"){
-      current_frequency = happyData[hour] + 1;
-      happyData[hour] = current_frequency;
-    }
-
-    else if (time_mood_split[1] == "sad"){
-      current_frequency = sadData[hour] + 1;
-      sadData[hour] = current_frequency;
-    }
+		if (time_mood_split[1] == "angry") numAngry++;
+    else if (time_mood_split[1] == "happy") numHappy++;
+    else if (time_mood_split[1] == "sad") numSad++;
+		total++;
   }
 
-  const reducer = (accumulator, currentValue) => accumulator + currentValue;
-  bar_chart_data = new Array(3);
-  bar_chart_data[0] = happyData.reduce(reducer);
-  bar_chart_data[1] = sadData.reduce(reducer);
-  bar_chart_data[2] = angryData.reduce(reducer);
-  //console.log(bar_chart_data)
+  bar_chart_data = [numHappy, numSad, numAngry];
 
-  let barChart1 = document.getElementById('barChart1').getContext('2d');
-  new Chart(barChart1, {
-    type: 'bar',
-    data: {
-      labels: ['Happiness', 'Sadness', 'Anger'],
-      datasets: [{
-        label: 'Mood',
-        data: bar_chart_data,
-      backgroundColor: ["#f5f242", "#42b0f5", "#f56642"]
-      }]
-    },
-    options:{
-      title:{
-        display:true,
-        text:'Frequency of Emotions Throughout the Day'
-      },
-      legend: {
-        display: false
-      },
-      scales:{
-        yAxes:[{
-          ticks:{
-            suggestedMin: 0,
-            suggestedMax: 24,
-            stepSize: 2
-          }
-        }]
-      }
-    }
-  });
+	let maxVal = Math.max(...bar_chart_data);
+  
+  max_emotion_value = bar_chart_data.indexOf(maxVal);
+  if (max_emotion_value == -1){
+    document.getElementById('mostfelt').innerHTML = emotions["neutral"];
+  }
+  else{
+    list_of_emotions = ["happy", "sad", "angry"];
+    document.getElementById('mostfelt').innerHTML = emotions[list_of_emotions[max_emotion_value]] + "(" + Math.round(100*maxVal/total) + "%)";
+	}
 
   let pieChart1 = document.getElementById('pieChart1').getContext('2d');
   pieChart1.canvas.height = 150;
@@ -153,6 +112,8 @@ async function getData(){
       }]
     },
     options: {
+			// responsive: true,
+    	// maintainAspectRatio: false,
       title: {
         display: true,
         text: 'Mood'

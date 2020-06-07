@@ -12,8 +12,6 @@ var emotions = {
 	neutral: '😐'
 };
 
-
-
 function changeType(part){
 	for (let i = 0; i < buttons.length; i++){
 		if (buttons[i].id == part + '-toggle'){
@@ -55,12 +53,19 @@ function makeDayCard(title, moods){
 	h2.innerHTML = title;
 	card.appendChild(h2);
 
+	let table = document.createElement('table');
+
+	let xy = [];
+
 	for (let mood of moods){
-		let div = document.createElement('div');
+		// let div = document.createElement('div');
 		let parts = mood.split(',');
-		div.innerHTML = `${parts[0]}: ${emotions[parts[1]]}`;
-		card.appendChild(div);
+		xy.push([parts[0], emotions[parts[1]]]);
+		// div.innerHTML = `${parts[0]}: ${emotions[parts[1]]}`;
+		// card.appendChild(div);
 	}
+	fillTable(table, xy);
+	card.appendChild(table);
 
 	return card;
 }
@@ -84,7 +89,7 @@ function makeMonthCard(title, moods){
 		else felt[parts[1]] += 1;
 	}
 	for (let key of Object.keys(felt)){
-		icons.innerHTML += `${emotions[key]}: ${felt[key]} &nbsp;`;
+		icons.innerHTML += `${emotions[key]}: ${felt[key]}<br>`;
 	}
 	icons.innerHTML = icons.innerHTML.substring(0, icons.innerHTML.length);
 	card.appendChild(icons);
@@ -107,24 +112,24 @@ function dayCalendar(){
 	document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 }
 
-async function weekCalendar(){
+function weekCalendar(){
 	let monthRecords = allData[year][month];
 	let keys = Object.keys(monthRecords);
 	if (keys.length > 7){
 		keys.splice(keys.length-7);
 	}
 	boardTitle.innerHTML = `Last Seven Days`;
-	// I'm experimenting
-	// document.getElementById('cards').innerHTML += `<h2>Last Seven Days</h2>`;
 
 	for (let day of Object.keys(monthRecords)){
 		let card = makeDayCard(month + ' ' + day, Object.values(monthRecords[day]));
+		card.style.maxHeight = "20vh";
+		card.style.overflowY = "auto";
 		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 	}
 
 }
 
-async function monthCalendar(){
+function monthCalendar(){
 	let monthRecords = allData[year][month];
 	let keys = Object.keys(monthRecords);
 	let monthTitle =`Month of ${titleCase(month)}`;
@@ -139,8 +144,9 @@ async function monthCalendar(){
 	}
 }
 
-async function yearCalendar(){
+function yearCalendar(){
 	let years = Object.keys(allData);
+	boardTitle.innerHTML = `Years`;
 	let html = "";
 	for (year of years) {
 
@@ -149,4 +155,14 @@ async function yearCalendar(){
 
 function titleCase(str){
 	return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1));
+}
+
+function fillTable(element, data){
+	element.innerHTML = "";
+	for (let pair of data){
+		element.innerHTML +=  `<tr>
+			<td>${pair[0]}</td>
+			<td>${pair[1]}</td>
+		</tr>`;
+	}
 }

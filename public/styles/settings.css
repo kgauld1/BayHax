@@ -4,3 +4,12 @@ html{
   background-attachment: fixed;  
   background-size: cover;
 }
+
+.slider {
+	width: 25vw;
+}
+
+.check {
+	width: 2.5vmin;
+	height: 2.5vmin;
+}

@@ -9,6 +9,10 @@
   
 }
 
+iframe {
+	border: none;
+}
+
 .selected {
 	background-color: white;
 	background-image: url("https://cdn.discordapp.com/attachments/713079524337647666/718925109036843062/Viewer.png");

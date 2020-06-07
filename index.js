@@ -60,10 +60,14 @@ app.post('/login', async (req, res) => {
 	if (!users) users = await client.db('BayHax').collection('Users');
 
 	if (await docExists(id)){
+		console.log('success', id);
 		res.cookie('id', id, {httpOnly: true});
 		res.send({success: '/viewer'});
 	}
-	else res.send({error: "doc not found"});
+	else{
+		console.log('error', id);
+		res.send({error: "doc not found"})
+	};
 });
 
 app.post('/get-data', async (req, res) => {
@@ -82,9 +86,18 @@ app.post('/get-data', async (req, res) => {
 
 app.post('/update', (req, res) => {
 	let {setting, change} = req.body;
-	let date = Date.now();
+	let id = req.cookies.id;
 
-	res.send(JSON.stringify({message: "Setting Changed"}));
+	res.send(JSON.stringify({message: "received"}));
+
+	if (!id) return;
+
+	let update = {$set: {}};
+	update['$set']['settings.' + setting] = change;
+
+	users.updateOne({_id: id}, update);
+
+	
 });
 
 app.post('/rpi', async (req, res) => {
@@ -114,18 +127,18 @@ app.post('/rpi', async (req, res) => {
 			const date1 = birthday.getDate();
 			console.log(date1);	
 
-			let path = year + '.' + month + '.' + day;
+			let path = 'moods.' + year + '.' + month + '.' + day;
 
 			let entry = time + ',' + mood;
 
 			console.log(path, entry);
 			if (picture) entry += ',' + picture;
 
-			// let update = {$push: {}};
-			// update['$push'][path] = {};
-			// update['$push'][path]['$each'] = [entry];
+			let update = {$push: {}};
+			update['$push'][path] = {};
+			update['$push'][path]['$each'] = [entry];
 
-			// users.updateOne({_id: id}, update);
+			users.updateOne({_id: id}, update);
 
 		}
 	}
