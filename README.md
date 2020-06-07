@@ -9,6 +9,8 @@ The data from the teddy bear/Raspberry Pi is sent to the BayHax website for the 
 
 By using BayHax, parents can get a clear picture of their child’s overall emotional health and become better equipped to handle their child’s mood swings. BayHax can also serve as a therapeutic friend for children to confide in.
 
+## Access BayHax
+
 To access our sample BayHax, enter the id: abc123
 
 ## Built With
