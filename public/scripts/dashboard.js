@@ -76,16 +76,16 @@ async function getData(){
   sadData = (new Array(24)).fill(0);
   angryData = (new Array(24)).fill(0);
 
-
-  //console.log(json)
-
   //Sum frequencies for each mood per hour
-  for (entry in moodData[year][month.toLowerCase()]){
-    time_mood_unsplit = moodData[year][month.toLowerCase()][numeric_day][0];
-    time_mood_split = time_mood_unsplit.split(",");
+  time_mood_unsplit = moodData[year][month.toLowerCase()][numeric_day];
+  //console.log(time_mood_unsplit)
+  for (time_index in time_mood_unsplit){
+    time_mood_split = time_mood_unsplit[time_index].split(",");
+    //console.log(time_mood_split);
 
     time = time_mood_split[0].split(":");
     hour = parseInt(time[0]);
+   
 
     if (time_mood_split[1] == "angry"){
       current_frequency = angryData[hour] + 1;

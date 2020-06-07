@@ -15,8 +15,7 @@ async function getData(){
 	var json = await response.json();
 	var moodData = json.moods;
 
-  console.log("is here");
-  console.log(moodData);
+  //console.log(moodData);
 
   //Get current date
   currentDate = new Date();
@@ -32,16 +31,20 @@ async function getData(){
   angryData = (new Array(24)).fill(0);
 
   //Sum frequencies for each mood per hour
-  for (entry in moodData[year][month.toLowerCase()]){
-    time_mood_unsplit = moodData[year][month.toLowerCase()][numeric_day][0];
-    time_mood_split = time_mood_unsplit.split(",");
+  time_mood_unsplit = moodData[year][month.toLowerCase()][numeric_day];
+  //console.log(time_mood_unsplit)
+  for (time_index in time_mood_unsplit){
+    time_mood_split = time_mood_unsplit[time_index].split(",");
+    //console.log(time_mood_split);
 
     time = time_mood_split[0].split(":");
     hour = parseInt(time[0]);
+   
 
     if (time_mood_split[1] == "angry"){
       current_frequency = angryData[hour] + 1;
       angryData[hour] = current_frequency;
+      //console.log(angryData);
     }
     
     else if (time_mood_split[1] == "happy"){
@@ -152,6 +155,47 @@ async function getData(){
       }
     }
   });
+
+  mostCommonEmotion = [];
+  for (index=0; index<24; index++){
+    happy_value = happyData[index];
+    sad_value = happyData[index];
+    anger_value = angryData[index];
+    
+    if (happy_value > sad_value & happy_value > anger_value){
+      mostCommonEmotion.push("&#128512;");
+    }
+
+    else if (sad_value > happy_value & sad_value > anger_value){
+      mostCommonEmotion.push("&#128532;");
+    }
+
+    else if (anger_value > sad_value & anger_value > happy_value){
+      mostCommonEmotion.push("&#128545;");
+    }
+
+    else if (happy_value == sad_value & happy_value != anger_value){
+      mostCommonEmotion.push("&#128512; &#128532;");
+    }
+
+    else if (happy_value == anger_value & happy_value != sad_value){
+      mostCommonEmotion.push("&#128512; &#128545;");
+    }
+
+    else if (sad_value == anger_value & sad_value != happy_value){
+      mostCommonEmotion.push("&#128532; &#128545;");
+    }
+
+    else if (happy_value == sad_value & happy_value == anger_value & happy_value ==0){
+      mostCommonEmotion.push("&#128528;");
+    }
+
+    else if (happy_value == sad_value & happy_value == anger_value){
+      mostCommonEmotion.push("&#128512; &#128532; &#128545;");
+    }
+  }
+
+  console.log(mostCommonEmotion)
 }
 
 for (i = 0; i < coll.length; i++) {
@@ -164,48 +208,8 @@ for (i = 0; i < coll.length; i++) {
       content.style.display = "block";
     }
   });
+
+  
 }
 
 getData();
-
-
-/*
-mostCommonEmotion = [];
-for (index=0; index<24; index++){
-  happy_value = happyData[index];
-  sad_value = happyData[index];
-  anger_value = angryData[index];
-  
-  if (happy_value > sad_value & happy_value > anger_value){
-    mostCommonEmotion.push("&#128512;");
-  }
-
-  else if (sad_value > happy_value & sad_value > anger_value){
-    mostCommonEmotion.push("&#128532;");
-  }
-
-  else if (anger_value > sad_value & anger_value > happy_value){
-    mostCommonEmotion.push("&#128545;");
-  }
-
-  else if (happy_value == sad_value & happy_value != anger_value){
-    mostCommonEmotion.push("&#128512; &#128532;");
-  }
-
-  else if (happy_value == anger_value & happy_value != sad_value){
-    mostCommonEmotion.push("&#128512; &#128545;");
-  }
-
-  else if (sad_value == anger_value & sad_value != happy_value){
-    mostCommonEmotion.push("&#128532; &#128545;");
-  }
-
-  else if (happy_value == sad_value & happy_value == anger_value & happy_value ==0){
-    mostCommonEmotion.push("&#128528;");
-  }
-
-  else if (happy_value == sad_value & happy_value == anger_value){
-    mostCommonEmotion.push("&#128512; &#128532; &#128545;");
-  }
-}
-*/

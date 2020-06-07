@@ -16,7 +16,7 @@ app.set('views', path.join(__dirname, '/public'));
 
 app.get('/', (req, res) => {
 	if (req.cookies.id) res.redirect('/viewer');
-  res.sendFile('index.html', {root : __dirname + '/public/pages'});
+  else res.sendFile('index.html', {root : __dirname + '/public/pages'});
 });
 
 app.use(express.static(path.join(__dirname , '/public')));
@@ -89,8 +89,7 @@ app.post('/update', (req, res) => {
 
 app.post('/rpi', async (req, res) => {
 	try{
-		let {mood, picture, id} = req.body;
-		let date = Date.now();
+		let {mood, picture, id, date, time} = req.body;
 
 		if (!docExists(id)) return res.send({error: "user does not exist"});
 
@@ -106,22 +105,27 @@ app.post('/rpi', async (req, res) => {
 		if (mood){
 			let months = ['january', 'february', 'march', 'april', 'may', 'june', 'july', 'august', 'september', 'october', 'november', 'december'];
 
-			let year = Date.getFullYear();
-			let month = months[Date.getMonth()];
-			let day = Date.getDay();
-			let hour = Date.getHours();
-			let minute = Date.getMinutes();
+			let dateparts = date.split('/');
+			let year = parseInt(dateparts[0]);
+			let month = months[parseInt(dateparts[1])-1];
+			let day = parseInt(dateparts[2]);
+
+			const birthday = new Date();
+			const date1 = birthday.getDate();
+			console.log(date1);	
 
 			let path = year + '.' + month + '.' + day;
 
-			let entry = hour + ':' + minute + ',' + mood;
+			let entry = time + ',' + mood;
+
+			console.log(path, entry);
 			if (picture) entry += ',' + picture;
 
-			let update = {$push: {}};
-			update[path] = {};
-			update[path]['$each'] = [entry];
+			// let update = {$push: {}};
+			// update['$push'][path] = {};
+			// update['$push'][path]['$each'] = [entry];
 
-			users.update({_id: id}, update);
+			// users.updateOne({_id: id}, update);
 
 		}
 	}
