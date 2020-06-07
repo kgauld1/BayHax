@@ -121,7 +121,7 @@ function weekCalendar(){
 	boardTitle.innerHTML = `Last Seven Days`;
 
 	for (let day of Object.keys(monthRecords)){
-		let card = makeDayCard(month + ' ' + day, Object.values(monthRecords[day]));
+		let card = makeDayCard(titleCase(month) + ' ' + day, Object.values(monthRecords[day]));
 		card.style.maxHeight = "20vh";
 		card.style.overflowY = "auto";
 		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
@@ -137,7 +137,7 @@ function monthCalendar(){
 	// document.getElementById('cards').innerHTML += `<h2>${monthTitle}</h2>`;
 
 	for (let day of Object.keys(monthRecords)){
-		let card = makeMonthCard(month + ' ' + day, Object.values(monthRecords[day]));
+		let card = makeMonthCard(titleCase(month) + ' ' + day, Object.values(monthRecords[day]));
 		card.style.width = "15vmin";
 		card.style.height = "15vmin";
 		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);

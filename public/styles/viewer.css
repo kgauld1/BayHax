@@ -26,6 +26,10 @@ iframe {
 }
 
 #sidebar {
+  background-image: url("https://cdn.discordapp.com/attachments/713079524337647666/718921752692129855/bg5.png");
+  background-repeat: no-repeat;
+  background-attachment: fixed;  
+  background-size: cover;
 	width: 15em;
 	height: 100%;
 	margin: 0;
@@ -33,8 +37,6 @@ iframe {
 	padding: 1em;
 	overflow: auto;
 	text-align: center;
-  
-  background: rgb(243, 218, 255);
 }
 
 #sidebar .prof-pic {

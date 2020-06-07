@@ -117,7 +117,14 @@ async function getData(){
       title: {
         display: true,
         text: 'Mood'
+      },
+			legend: {
+				labels: {
+					defaultFontFamily: "Comfortaa",
+					defaultFontSize: 24
+				}
       }
+			
     }
   });
 }

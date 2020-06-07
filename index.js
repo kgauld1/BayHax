@@ -123,10 +123,6 @@ app.post('/rpi', async (req, res) => {
 			let month = months[parseInt(dateparts[1])-1];
 			let day = parseInt(dateparts[2]);
 
-			const birthday = new Date();
-			const date1 = birthday.getDate();
-			console.log(date1);	
-
 			let path = 'moods.' + year + '.' + month + '.' + day;
 
 			let entry = time + ',' + mood;
