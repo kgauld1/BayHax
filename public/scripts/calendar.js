@@ -41,7 +41,6 @@ async function getData(){
 	var json = await response.json();
 	console.log(json);
 	allData = json.moods;
-
 	changeType('day');
 }
 
@@ -122,7 +121,7 @@ function weekCalendar(){
 
 	for (let day of Object.keys(monthRecords)){
 		let card = makeDayCard(titleCase(month) + ' ' + day, Object.values(monthRecords[day]));
-		card.style.maxHeight = "20vh";
+		card.style.maxHeight = "50vh";
 		card.style.overflowY = "auto";
 		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 	}

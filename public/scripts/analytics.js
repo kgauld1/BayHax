@@ -1,6 +1,15 @@
 var coll = document.getElementsByClassName("collapsible");
 var i;
-var moodDada;
+var moodData;
+
+function flipDescription(){
+	let select = document.getElementById('emotion-select');
+	document.getElementById('happy-description').classList.add('hide');
+	document.getElementById('sad-description').classList.add('hide');
+	document.getElementById('angry-description').classList.add('hide');
+	document.getElementById(select.value + '-description').classList.remove('hide');	
+}
+
 
 async function getData(){
 	var response = await fetch('/get-data', {
@@ -47,47 +56,8 @@ async function getData(){
 
 	makeBarChart('comparison', "Your Child's Emotions Throughout the Day", ['Happiness', 'Sadness', 'Anger'], datas, ['#f5f242', '#42b0f5', '#f56642'])
 
-  //Generate line graphs for the child's happiness, sadness, anger, and overall emotions throughout the day
-	makeLineGraph('happyLineGraph', "Your Child's Happiness Throughout the Day", ['Happiness'], [happyData], ['#f5f242']);
-	makeLineGraph('sadLineGraph', "Your Child's Sadness Throughout the Day", ['Sadness'], [sadData], ['#42b0f5']);
-	makeLineGraph('angryLineGraph', "Your Child's Anger Throughout the Day", ['Anger'], [angryData], ['#f56642']);
-	makeLineGraph('allLineGraph', "Your Child's Emotions Throughout the Day", ['Sadness', 'Happiness', 'Anger'], [sadData, happyData, angryData], ['#42b0f5', '#f5f242', '#f56642'], true);
+	makeLineGraph('allLineGraph', "Your Child's Emotions Throughout the Day", ['Hapiness', 'Sadness', 'Anger'], datas, ['#f5f242', '#42b0f5', '#f56642'], true);
 
-  //Finds most common emotion per hour
-  mostCommonEmotion = [];
-  for (index=0; index<24; index++){
-    happy_value = happyData[index];
-    sad_value = sadData[index];
-    anger_value = angryData[index];
-    
-    if (happy_value > sad_value && happy_value > anger_value){
-      mostCommonEmotion.push([index+":00", '😀']);
-    }
-    else if (sad_value > happy_value && sad_value > anger_value){
-      mostCommonEmotion.push([index+":00", '😔']);
-    }
-    else if (anger_value > sad_value && anger_value > happy_value){
-      mostCommonEmotion.push([index+":00", '😡']);
-    }
-    else if (happy_value == sad_value && happy_value != anger_value){
-      mostCommonEmotion.push([index+":00", '😀 😔']);
-    }
-    else if (happy_value == anger_value && happy_value != sad_value){
-      mostCommonEmotion.push([index+":00", '😀 😡']);
-    }
-    else if (sad_value == anger_value && sad_value != happy_value){
-      mostCommonEmotion.push([index+":00", '😔 😡']);
-    }
-    else if (happy_value == 0 && happy_value == 0 && happy_value == 0){
-      mostCommonEmotion.push([index+":00", '😐']);
-    }
-    else if (happy_value == sad_value && happy_value == anger_value){
-      mostCommonEmotion.push([index+":00", '😀 😔 😡']);
-    }
-  }
-  
-  //console.log(mostCommonEmotion);
- fillTable(mostCommonEmotion);
 }
 
 function getHourData(){
@@ -143,6 +113,8 @@ function makeLineGraph(id, title, labels, datas, colors, showLegend){
 			datasets: []
 		},
 		options: {
+			responsive: true,
+			maintainAspectRatio: false,
 			title: {
 				display: true,
 				text: title
@@ -197,6 +169,7 @@ function makeBarChart(id, title, labels, datas, colors){
     data: data,
     options: {
 			responsive: true,
+			maintainAspectRatio: false,
 			legend: {
 				position: 'top',
 			},

@@ -11,7 +11,7 @@ let users = false;
 
 app.set('views', path.join(__dirname, '/public'));
 
- app.use(express.json())
+ app.use(bodyParser.json({limit: '10mb', extended: true}))
 	 .use(cookieParser());
 
 app.get('/', (req, res) => {
@@ -42,6 +42,9 @@ app.get('/settings', (req, res) => {
 });
 app.get('/about', (req, res) => {
   res.sendFile('about.html', {root : __dirname + '/public/pages'});
+});
+app.get('/monitor', (req, res) => {
+  res.sendFile('monitor.html', {root : __dirname + '/public/pages'});
 });
 
 
@@ -111,6 +114,8 @@ app.post('/rpi', async (req, res) => {
 		var options = {projection: {}};
 		options.projection[req.body.part] = 1;
 		var doc = await users.findOne({_id: id});
+
+		console.log(typeof doc.settings)
 		
 		res.send(doc.settings);
 
@@ -128,7 +133,16 @@ app.post('/rpi', async (req, res) => {
 			let entry = time + ',' + mood;
 
 			console.log(path, entry);
-			if (picture) entry += ',' + picture;
+			if (picture){
+				let id = Math.floor(Math.random()*Math.pow(10, 15));
+				entry += ',' + id;
+
+				let update = {$push: {}};
+				update['$push'][id] = {};
+				update['$push'][id]['$each'] = [entry];
+
+				users.updateOne({_id: id}, update);
+			}
 
 			let update = {$push: {}};
 			update['$push'][path] = {};
