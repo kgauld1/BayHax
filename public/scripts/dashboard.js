@@ -25,7 +25,7 @@ function fillLastRecorded(parts){
 }
 
 function fillFelt(times){
-  console.log(times)
+  //console.log(times)
 	let felt = new Set();
 	for (let t of times) {
 		let parts = t.split(',');

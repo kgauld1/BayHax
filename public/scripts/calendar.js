@@ -39,7 +39,7 @@ async function getData(){
 	});
 
 	var json = await response.json();
-	console.log(json);
+	//console.log(json);
 	allData = json.moods;
 	changeType('day');
 }
@@ -122,6 +122,7 @@ function weekCalendar(){
 	for (let day of Object.keys(monthRecords)){
 		let card = makeDayCard(titleCase(month) + ' ' + day, Object.values(monthRecords[day]));
 		card.style.maxHeight = "50vh";
+    card.style.width = "20vmin";
 		card.style.overflowY = "auto";
 		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 	}
@@ -137,8 +138,8 @@ function monthCalendar(){
 
 	for (let day of Object.keys(monthRecords)){
 		let card = makeMonthCard(titleCase(month) + ' ' + day, Object.values(monthRecords[day]));
-		card.style.width = "15vmin";
-		card.style.height = "15vmin";
+		card.style.width = "20vmin";
+		card.style.height = "20vmin";
 		document.getElementById('cards').getElementsByClassName('container')[0].appendChild(card);
 	}
 }

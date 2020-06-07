@@ -27,12 +27,13 @@ async function getData(){
 	for (let time in day){
 		let parts = day[time].split(',');
 		if (parts.length > 2){
-			let image = 'data:image/jpeg;base64, ' + parts[2];
+			let imageId = parts[2];
+			let response = fetch('')
 			images.unshift(image);
 			// document.getElementById('image').src = image;
 		}
 	}
-
+  
 	document.getElementById('image').src = images[0];
 }
 

@@ -47,8 +47,6 @@ app.get('/monitor', (req, res) => {
   res.sendFile('monitor.html', {root : __dirname + '/public/pages'});
 });
 
-
-
 app.get('/logout', (req, res) => {
 	if (req.cookies.id) res.clearCookie('id');
 	res.redirect('/');
@@ -66,6 +64,27 @@ app.post('/login', async (req, res) => {
 		console.log('success', id);
 		res.cookie('id', id, {httpOnly: true});
 		res.send({success: '/viewer'});
+	}
+	else{
+		console.log('error', id);
+		res.send({error: "doc not found"})
+	};
+});
+
+app.post('/image', async (req, res) => {
+	let id = req.cookies.id;
+	let imageId = req.body.id;
+
+	if (!users) users = await client.db('BayHax').collection('Users');
+
+	if (await docExists(id)){
+
+		let query = {};
+		query['images.' + imageId] = 1;
+		
+		let doc = db.test.findOne({_id: id}, query);
+		console.log(Object.keys(doc));
+		res.send({image: doc[imageId]});
 	}
 	else{
 		console.log('error', id);
@@ -134,14 +153,14 @@ app.post('/rpi', async (req, res) => {
 
 			console.log(path, entry);
 			if (picture){
-				let id = Math.floor(Math.random()*Math.pow(10, 15));
+				let newId = Math.floor(Math.random()*Math.pow(10, 15));
 				entry += ',' + id;
 
-				let update = {$push: {}};
-				update['$push'][id] = {};
-				update['$push'][id]['$each'] = [entry];
+				let image = 'data:image/jpeg;base64, ' + picture;
 
-				users.updateOne({_id: id}, update);
+				let up = {$set: {}};
+				up['$set']['images.' + newId] = image;
+				users.updateOne({_id: id}, up);
 			}
 
 			let update = {$push: {}};
