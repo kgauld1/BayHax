@@ -14,10 +14,10 @@ By using BayHax, parents can get a clear picture of their child’s overall emot
 To access our sample BayHax, enter the id: abc123
 
 ## Built With
-• HTML/CSS
-• JavaScript
-• Chart.js
-• Python
-• MongoDB
-• Raspberry Pi
+• HTML/CSS  
+• JavaScript  
+• Chart.js  
+• Python  
+• MongoDB  
+• Raspberry Pi  
 • Pi Cam
