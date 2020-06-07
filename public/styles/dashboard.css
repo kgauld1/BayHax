@@ -53,7 +53,6 @@ html{
 	font-size: 6vmin;
 	text-orientation: horizontal-rl
 }
-
 #common {
   position: relative;
 	grid-row: 1 / span 2;
@@ -68,6 +67,10 @@ html{
 	margin: 0;
 	padding: 0;
 	font-size: 6vmin
+}
+#pie {
+	grid-row: 3;
+  grid-column: 3 / span 4;
 }
 
 .grid-item {

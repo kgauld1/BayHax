@@ -34,8 +34,8 @@ app.get('/dashboard', (req, res) => {
 app.get('/calendar', (req, res) => {
   res.sendFile('calendar.html', {root : __dirname + '/public/pages'});
 });
-app.get('/information', (req, res) => {
-  res.sendFile('information.html', {root : __dirname + '/public/pages'});
+app.get('/analytics', (req, res) => {
+  res.sendFile('analytics.html', {root : __dirname + '/public/pages'});
 });
 app.get('/settings', (req, res) => {
   res.sendFile('settings.html', {root : __dirname + '/public/pages'});
