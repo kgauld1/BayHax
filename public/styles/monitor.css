@@ -25,10 +25,10 @@ html{
 }
 .card button {
 	font-size: 2vmin;
-	background: rgb(156, 116, 250);
+	background: rgb(225, 212, 255);
 	padding: 1vmin;
 	border: 2px solid black;
-	color: white;
+	color: black;
 	cursor: pointer;
 }
 
