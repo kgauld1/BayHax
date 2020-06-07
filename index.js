@@ -61,7 +61,6 @@ app.post('/login', async (req, res) => {
 	if (!users) users = await client.db('BayHax').collection('Users');
 
 	if (await docExists(id)){
-		console.log('success', id);
 		res.cookie('id', id, {httpOnly: true});
 		res.send({success: '/viewer'});
 	}
@@ -82,9 +81,8 @@ app.post('/image', async (req, res) => {
 		let query = {};
 		query['images.' + imageId] = 1;
 		
-		let doc = db.test.findOne({_id: id}, query);
-		console.log(Object.keys(doc));
-		res.send({image: doc[imageId]});
+		let doc = await users.findOne({_id: id}, {projection: query});
+		res.send({image: doc.images[imageId]});
 	}
 	else{
 		console.log('error', id);
@@ -127,14 +125,10 @@ app.post('/rpi', async (req, res) => {
 		let {mood, picture, id, date, time} = req.body;
 
 		if (!docExists(id)) return res.send({error: "user does not exist"});
-
-		console.log(id, mood);
 		
 		var options = {projection: {}};
 		options.projection[req.body.part] = 1;
 		var doc = await users.findOne({_id: id});
-
-		console.log(typeof doc.settings)
 		
 		res.send(doc.settings);
 
@@ -150,11 +144,10 @@ app.post('/rpi', async (req, res) => {
 			let path = 'moods.' + year + '.' + month + '.' + day;
 
 			let entry = time + ',' + mood;
-
-			console.log(path, entry);
+			
 			if (picture){
 				let newId = Math.floor(Math.random()*Math.pow(10, 15));
-				entry += ',' + id;
+				entry += ',' + newId;
 
 				let image = 'data:image/jpeg;base64, ' + picture;
 

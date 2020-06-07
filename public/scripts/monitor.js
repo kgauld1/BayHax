@@ -7,6 +7,14 @@ document.body.appendChild(img1);
 var images = [];
 var index = 0;
 
+var emotions = {
+	happy: '😀',
+	sad: '😔',
+	angry: '😡',
+	neutral: '😐'
+};
+
+
 async function getData(){
 	var response = await fetch('/get-data', {
 		method: 'POST',
@@ -28,13 +36,35 @@ async function getData(){
 		let parts = day[time].split(',');
 		if (parts.length > 2){
 			let imageId = parts[2];
-			let response = fetch('')
-			images.unshift(image);
-			// document.getElementById('image').src = image;
+			let description = "June" + " " + [days[days.length-1]] + ", " + '2020' + " at " + parts[0] + ": " + emotions[parts[1]];
+			images.unshift([imageId, description]);
 		}
 	}
-  
-	document.getElementById('image').src = images[0];
+
+	changeImage(0);
+}
+
+async function changeImage(dir){
+	if (index + dir >= images.length || index + dir < 0){
+		console.log('invalid');
+		return;
+	}
+	index += dir;
+	let response2 = await fetch('/image', {
+		method: 'POST',
+		headers: {
+			'Content-Type': 'application/json'
+		},
+		body: JSON.stringify({id: images[index][0]})
+	})
+  let json2 = await response2.json();
+	document.getElementById('image').src = json2.image;
+	document.getElementById('decription').innerHTML = images[index][1];
 }
 
 getData();
+
+function titleCase(str){
+	return str.toLowerCase().split(' ').map(word => word.charAt(0).toUpperCase() + word.slice(1));
+}
+
